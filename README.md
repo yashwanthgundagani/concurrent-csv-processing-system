@@ -279,8 +279,8 @@ The project will include unit and integration tests covering:
 ## 🗺️ Development Roadmap
 
 - [x] Stage 1: Custom ThreadPoolExecutor configuration.
-- [ ] Stage 2: CSV file discovery using Java NIO.
-- [ ] Stage 3: Concurrent file processing using worker tasks.
+- [x] Stage 2: CSV file discovery using Java NIO.
+- [x] Stage 3: Concurrent file processing using worker tasks.
 - [ ] Stage 4: CSV parsing, validation, and business processing.
 - [ ] Stage 5: Processing results and file management.
 - [ ] Stage 6: REST APIs for processing and status tracking.
