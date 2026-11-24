@@ -1,3 +1,6 @@
 spring:
   application:
     name: concurrent-file-processor
+file:
+  processing:
+    input-dir: input
