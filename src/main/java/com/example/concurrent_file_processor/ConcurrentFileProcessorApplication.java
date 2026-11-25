@@ -1,5 +1,6 @@
 package com.example.concurrent_file_processor;
 
+import com.example.concurrent_file_processor.model.ProcessingResult;
 import com.example.concurrent_file_processor.service.FileDiscoveryService;
 import com.example.concurrent_file_processor.service.FileProcessingService;
 import org.springframework.boot.CommandLineRunner;
@@ -21,20 +22,26 @@ public class ConcurrentFileProcessorApplication {
 	CommandLineRunner testConcurrentProcessing(FileDiscoveryService discoveryService,
 											   FileProcessingService fileProcessingService){
 		return args->{
-			//Step 1: Discover of CSV files
 			List<Path> files=discoveryService.discoverCsvFiles();
 
 			System.out.println(
 					"Discovered "+files.size()+" CSV files"
 			);
 
-			//files.forEach(System.out::println);
-			//Step 2: Submit files for concurrent processing
-			List<Future<?>> futures=
+			List<Future<ProcessingResult>> futures=
 					fileProcessingService.processFiles(files);
-			System.out.println(
-					"Submitted "+futures.size()+" tasks"
-			);
+
+			for(Future<ProcessingResult> future : futures){
+				ProcessingResult result=future.get();
+
+				System.out.println("\nProcessing Summary");
+				System.out.println("File: "+result.getFileName());
+				System.out.println("Total Records: "+result.getTotalRecords());
+				System.out.println("Valid Records: "+result.getValidRecords());
+				System.out.println("Invalid Records: "+result.getInvalidRecords());
+				System.out.println("Total Salary: "+ result.getTotalSalary());
+				System.out.println("Average Salary: "+ result.getAverageSalary());
+			}
 		};
 	}
 }
